@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+:root {
+  --primary-light-pink: #d8c7d9;
+  --primary-dark-purple: #13061b;
+  --primary-fuchsia: #d030ce;
+  --primary-light-purple: #5f4770;
+  --primary-medium-purple: #321c43;
+  --primary-light-blue: #68a2bd;
+  --primary-purplish-blue: #71649b;
+  --primary-brownish: #5f3749;
+  --primary-brownish-red: #36122f;
+  --primary-grey: #454550;
+
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background: linear-gradient(to bottom, var(--primary-dark-purple), var(--primary-brownish-red));
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* @layer utilities {
+  .gradient-background {
+    background: linear-gradient(to bottom, var(--primary-brownish), var(--primary-dark-purple));
+  }
+} */
+
+@layer components {
+  .card-gradient {
+    background: linear-gradient(to bottom right, var(--primary-fuchsia) 0%, var(--primary-dark-purple) 100%);
+  }
+}
+
