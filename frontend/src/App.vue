@@ -20,6 +20,8 @@ import Contact from './components/Contact.vue'
       <div class="min-h-screen snap-start"><AboutMe /></div>
       <div class="min-h-screen snap-start"><Contact /></div>
     </div>
+
+      <!-- PAGE NOT FOUND  -->
   </div>
 </template>
 

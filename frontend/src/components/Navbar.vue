@@ -6,12 +6,12 @@
             <a href="#" class="navbar-link">Contact</a>
         </div>
         <div>
-            <img src="../assets/logo.png" alt="logo" width="100px" height="100px"/>
+            <img src="../assets/asset-1.svg" alt="logo" width="50px" height="50px"/>
         </div>
         <div class="flex flex-row gap-4">
-            <a href="#" class="navbar-link">LinkedIn</a>
-            <a href="#" class="navbar-link">GitHub</a>
-            <a href="#" class="navbar-link">Instagram</a>
+            <a href="https://www.linkedin.com/in/bianca-gabriela-asavoaei/" class="navbar-link">LinkedIn</a>
+            <a href="https://github.com/BiancaGabrielaA" class="navbar-link">GitHub</a>
+            <a href="https://www.instagram.com/gizzehhh/" class="navbar-link">Instagram</a>
         </div>
      </nav>
 </template>
