@@ -1,7 +1,7 @@
 <template>
     <div class="min-h-screen flex flex-col justify-center items-center pt-20">
     
-      <p class="toolkit-title mb-20  text-5xl font-semibold">Toolkit</p>
+      <p class="section-title mb-20  text-5xl font-semibold">Toolkit</p>
   
       <div ref="toolkitRef" class="toolkit-container flex flex-row flex-wrap gap-8 justify-center">
         <div  v-for="(tool, index) in toolkit" :key="tool.name"  class="tool-item flex flex-col items-center justify-center w-20 opacity-0">
@@ -103,13 +103,4 @@ onMounted(() => {
     animation: fadeInRight 0.6s ease-out forwards;
   }
 
-.toolkit-title {
-  background: linear-gradient(to bottom, var(--primary-fuchsia), var(--primary-medium-purple));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 1px 1px var(--primary-light-pink);
-  padding: 10px;
-  border-radius: 10px;
-}
 </style>

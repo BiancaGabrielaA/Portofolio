@@ -44,6 +44,7 @@ const projectCards = ref([
 
 <template>
     <div class="min-h-screen flex flex-col justify-center items-center pt-20">
+        <p class="section-title mb-20  text-5xl font-semibold">Projects</p>
         <div class="container max-w-4xl mx-auto px-4 py-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
                 <ProjectCard v-for="project in projectCards" :key="project.id" :project="project" />
@@ -51,6 +52,3 @@ const projectCards = ref([
         </div>
     </div>
 </template>
-
-<style scoped>
-</style>

@@ -41,3 +41,13 @@
   }
 }
 
+.section-title {
+  background: lineaxr-gradient(to bottom, var(--primary-fuchsia), var(--primary-medium-purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 1px 1px var(--primary-light-pink);
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+}

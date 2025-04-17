@@ -30,17 +30,17 @@
             <h3 class="text-black text-center text-xl font-bold mb-6 tracking-wide">Get in touch</h3>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-              <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-500" placeholder="Your name" />
+              <input type="text" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-500" placeholder="Your name" />
             </div>
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-              <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-500" placeholder="you@example.com" />
+              <input type="email" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-500" placeholder="you@example.com" />
             </div>
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-              <textarea rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-fuchsia-500" placeholder="Your message"></textarea>
+              <textarea rows="4" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-fuchsia-500" placeholder="Your message"></textarea>
             </div>
           </form>
         </div>
