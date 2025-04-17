@@ -28,12 +28,12 @@ const handleMouseMove = (e) => {
     <Navbar class="fixed top-0 left-0 w-full z-50" />
 
     <!-- Main Content -->
-    <div class="pt-16 snap-y snap-mandatory overflow-y-scroll h-screen">
+    <div class="pt-16 snap-y snap-mandatory overflow-y-scroll h-screen scroll-smooth">
       <div class="min-h-screen snap-start"><Introduction /></div>
-      <div class="min-h-screen snap-start"><Projects /></div>
+      <div id="projects" class="min-h-screen snap-start"><Projects /></div>
       <div class="min-h-screen snap-start"><Toolkit /></div>
-      <div class="min-h-screen snap-start"><AboutMe /></div>
-      <div class="min-h-screen snap-start"><Contact /></div>
+      <div id="aboutme" class="min-h-screen snap-start"><AboutMe /></div>
+      <div id="contact" class="min-h-screen snap-start"><Contact /></div>
     </div>
     <!-- Page not found -->
   </div>

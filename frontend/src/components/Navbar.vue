@@ -1,9 +1,9 @@
 <template>
      <nav class="flex flex-row justify-between items-center p-4">
         <div class="flex flex-row gap-4">
-            <a href="#" class="navbar-link">Projects</a>
-            <a href="#" class="navbar-link">About Me</a>
-            <a href="#" class="navbar-link">Contact</a>
+            <a href="#projects" class="navbar-link">Projects</a>
+            <a href="#aboutme" class="navbar-link">About Me</a>
+            <a href="#contact" class="navbar-link">Contact</a>
         </div>
         <div>
             <img src="../assets/asset-1.svg" alt="logo" width="50px" height="50px"/>
