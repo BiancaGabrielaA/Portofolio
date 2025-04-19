@@ -1,7 +1,8 @@
+import Link from "next/link";
 export const ContactButton = () => {
     return (
-      <a
-        href="#contact"
+      <Link
+        href="/contact"
         className="fixed bottom-6 left-6 z-50
                    bg-white
                    w-36 h-36 flex items-center justify-center
@@ -11,7 +12,7 @@ export const ContactButton = () => {
                    hover:bg-[var(--light-brown)] hover:text-white"
       >
         Contact Us
-      </a>
+      </Link>
     );
   };
   

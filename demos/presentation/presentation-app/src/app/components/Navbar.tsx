@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { FaInstagram, FaFacebookF, FaXTwitter } from 'react-icons/fa6';
 
@@ -47,11 +48,11 @@ export const Navbar = () => {
         style={{ backgroundColor: 'var(--light-brown)' }}
       >
         <ul className="flex flex-col items-center justify-center gap-6 py-10 text-lg">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Sample Menu</a></li>
-          <li><a href="#">Gallery</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><Link href="/" onClick={() => setIsOpen(false)}>Home</Link></li>
+          <li><Link href="/about" onClick={() => setIsOpen(false)}>About</Link></li>
+          <li><Link href="/menu" onClick={() => setIsOpen(false)}>Sample Menu</Link></li>
+          <li><Link href="/gallery" onClick={() => setIsOpen(false)}>Gallery</Link></li>
+          <li><Link href="/contact" onClick={() => setIsOpen(false)}>Contact</Link></li>
         </ul>
       </div>
 

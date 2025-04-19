@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "./components/Navbar";
 import { ContactButton } from "./components/ContactButton";
 import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 
 export const metadata: Metadata = {
   title: "Jasmine Catering"
@@ -22,12 +23,20 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/logo.svg" />
       </head>
       <body className="bg-white">
-        <div className="border-16 min-h-screen" style={{ borderColor: "var(--light-brown)" }}>
-          <Navbar/>
-          <ContactButton/>
-          <Header/>
-          {children}
-          
+        <div
+          className="min-h-screen flex flex-col border-16"
+          style={{ borderColor: "var(--light-brown)" }}
+        >
+          <Navbar />
+          <ContactButton />
+          <Header />
+
+          {/* Main content area takes all available space */}
+          <main className="flex-1">
+            {children}
+          </main>
+
+          <Footer />
         </div>
       </body>
     </html>

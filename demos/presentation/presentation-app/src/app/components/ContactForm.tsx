@@ -22,7 +22,7 @@ export const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto p-6 space-y-6 text-[var(--light-brown)]">
+    <form onSubmit={handleSubmit} className="max-w-2xl p-6 space-y-6 text-[var(--light-brown)]">
       <div className="flex flex-col md:flex-row gap-6">
         <div className="flex-1">
           <label htmlFor="firstName" className="block mb-1 text-sm font-medium">First Name</label>
