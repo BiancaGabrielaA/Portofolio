@@ -1,0 +1,49 @@
+@keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .spin-slow {
+    animation: spin 6s linear infinite;
+  }
+  
+  /* Special title styles for the main title */
+.title-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 700;
+    -webkit-background-clip: text;
+    color: var(--muted-navy);
+    letter-spacing: 2px;
+    text-align: center;
+    animation: fadeIn 2s ease-out;
+  }
+  
+  /* Special title styles for the second paragraph */
+  .title-sub {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; /* Slightly smaller than the main title */
+    font-weight: 400; /* Lighter weight */
+    color: var(--deep-burgundy); /* Dark color for contrast */
+    letter-spacing: 1px;
+    text-align: center;
+    -webkit-background-clip: text;
+    animation: fadeIn 2s ease-out 0.5s; /* Slight delay for the second one */
+  }
+  
+  /* Optional animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

@@ -1,40 +1,12 @@
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg-color: var(--ivory);
-    --text-color: var(--charcoal-black);
-    --heading-color: var(--deep-burgundy);
-    --link-color: var(--muted-navy);
-    --link-hover: var(--gold);
-    --button-bg: var(--gold);
-    --button-text: var(--charcoal-black);
-    --button-hover-bg: var(--deep-burgundy);
-    --button-hover-text: var(--ivory);
-  }
+:root {
+  --charcoal-black: #2c2f36;
+  --deep-burgundy: #9b2d20;
+  --gold: #ffcc00;
+  --muted-navy: #3e4e6d;
+  --ivory: #f8f8f8;
+}
 
-  body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-  }
-
-  h1, h2, h3 {
-    color: var(--heading-color);
-  }
-
-  a {
-    color: var(--link-color);
-  }
-
-  a:hover {
-    color: var(--link-hover);
-  }
-
-  button {
-    background-color: var(--button-bg);
-    color: var(--button-text);
-  }
-
-  button:hover {
-    background-color: var(--button-hover-bg);
-    color: var(--button-hover-text);
-  }
+body {
+  background-color: var(--ivory) !important;
+  color: var(--muted-navy);
 }

@@ -4,6 +4,9 @@
 
 export default function About () {
     return (
-        <div>About Page</div>
+        <div>
+            <p>Wolfgang Amadeus Mozart</p>
+            
+        </div>
     )
 }

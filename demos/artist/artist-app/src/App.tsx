@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Landing from './pages/Landing';
 import About from './pages/About';
 import Compositions from './pages/Compositions';
