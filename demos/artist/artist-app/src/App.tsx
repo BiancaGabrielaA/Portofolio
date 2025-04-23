@@ -6,6 +6,7 @@ import Compositions from './pages/Compositions';
 import TourDates from './pages/TourDates';
 import Merch from './pages/Merch';
 import Booking from './pages/Booking';
+import Navbar from './components/Navbar';
 
 const pages = [<Landing />, <About />, <Compositions />, <TourDates />, <Merch />, <Booking />];
 
@@ -15,56 +16,52 @@ function App() {
   const [isScrolling, setIsScrolling] = useState(false);
 
   const handleWheel = (event: WheelEvent) => {
-    // Prevent the default wheel event (vertical scroll)
     event.preventDefault();
-
     if (isScrolling) return;
 
     setIsScrolling(true);
 
     if (event.deltaY > 0) {
-      // Scroll down: move right
-      setCurrentPage((prev) => Math.min(prev + 1, pages.length - 1)); // Don't scroll past the last page
+      setCurrentPage((prev) => Math.min(prev + 1, pages.length - 1));
     } else {
-      // Scroll up: move left
-      setCurrentPage((prev) => Math.max(prev - 1, 0)); // Don't scroll past the first page
+      setCurrentPage((prev) => Math.max(prev - 1, 0));
     }
 
-    // Throttle the scroll action to allow smooth navigation
     setTimeout(() => {
       setIsScrolling(false);
-    }, 1000); // 1-second throttle (adjust timing as necessary)
+    }, 1000);
   };
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
-    if (scrollContainer) {
-      // Listen to wheel scroll event on the container
-      scrollContainer.addEventListener('wheel', handleWheel, { passive: false });
+    if (!scrollContainer) return;
 
-      return () => {
-        if (scrollContainer) {
-          scrollContainer.removeEventListener('wheel', handleWheel);
-        }
-      };
-    }
+    scrollContainer.addEventListener('wheel', handleWheel, { passive: false });
+
+    return () => {
+      scrollContainer.removeEventListener('wheel', handleWheel);
+    };
   }, [isScrolling]);
 
   useEffect(() => {
     if (scrollRef.current) {
-      // Move the scroll to the correct page
-      const targetPage = scrollRef.current.children[currentPage];
+      const targetPage = scrollRef.current.children[currentPage] as HTMLElement;
       targetPage.scrollIntoView({ behavior: 'smooth' });
     }
   }, [currentPage]);
 
   return (
-    <div className="scroll-container" ref={scrollRef}>
-      {pages.map((page, index) => (
-        <div className="page" key={index}>
-          {page}
-        </div>
-      ))}
+    <div className="app-container">
+      {/* Show Navbar on pages other than Landing */}
+      {currentPage !== 0 && <Navbar setCurrentPage={setCurrentPage} />}
+
+      <div className="scroll-container" ref={scrollRef}>
+        {pages.map((page, index) => (
+          <div className="page" key={index}>
+            {page}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

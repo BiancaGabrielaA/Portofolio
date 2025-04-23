@@ -1,0 +1,41 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column; /* stack logo and links vertically */
+    align-items: flex-start; /* align to the left */
+    justify-content: flex-start; /* align to the left */
+    z-index: 9999;
+  }
+  
+  .navbar-logo {
+    height: 80px;
+    width: auto;
+    margin-bottom: 0.5rem; /* space between logo and links */
+  }
+  
+  .navbar-links {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .navbar-links button {
+    background: none;
+    border: none;
+    color: var(--muted-navy);
+    font-size: 1.25rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .navbar-links button:hover {
+    color: var(--gold);
+    transform: scale(1.05);
+  }
+  
