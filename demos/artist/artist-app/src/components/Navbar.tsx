@@ -8,7 +8,7 @@ type NavbarProps = {
 export default function Navbar({ setCurrentPage }: NavbarProps) {
     return (
         <nav className="navbar">
-            <img src={logo} alt="Logo" className="navbar-logo" />
+            <img src={logo} alt="Logo" onClick={() => setCurrentPage(0)}  className="navbar-logo" />
             <div className="navbar-links">
                 <button onClick={() => setCurrentPage(1)}>About</button>
                 <button onClick={() => setCurrentPage(2)}>Compositions</button>

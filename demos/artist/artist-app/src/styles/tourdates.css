@@ -1,0 +1,55 @@
+.tour-container {
+    padding: 3rem 1rem;
+    color: var(--muted-navy);
+}
+
+.tour-title {
+    font-size: 2rem;
+    color: var(--deep-burgundy);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.table-responsive {
+    display: flex;
+    justify-content: center;
+}
+
+.tour-table {
+    font-size: 1.1rem;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.tour-table th {
+    color: var(--gold);
+    text-transform: uppercase;
+    font-weight: 600;
+    border-bottom: 2px solid var(--muted-navy);
+    text-align: center;
+}
+
+.tour-table td {
+    padding: 1rem 0.5rem;
+    border-bottom: none;
+    text-align: center;
+}
+
+.tour-table tr:last-child td {
+    border-bottom: none;
+}
+
+td button {
+    background-color: var(--deep-burgundy);
+    color: var(--ivory);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+td button:hover {
+    background-color: var(--gold);
+    color: var(--charcoal-black);
+}

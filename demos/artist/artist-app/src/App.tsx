@@ -7,6 +7,7 @@ import TourDates from './pages/TourDates';
 import Merch from './pages/Merch';
 import Booking from './pages/Booking';
 import Navbar from './components/Navbar';
+import AudioPlayer from './components/AudioPlayer';
 
 const pages = [<Landing />, <About />, <Compositions />, <TourDates />, <Merch />, <Booking />];
 
@@ -54,6 +55,7 @@ function App() {
     <div className="app-container">
       {/* Show Navbar on pages other than Landing */}
       {currentPage !== 0 && <Navbar setCurrentPage={setCurrentPage} />}
+      <AudioPlayer/>
 
       <div className="scroll-container" ref={scrollRef}>
         {pages.map((page, index) => (

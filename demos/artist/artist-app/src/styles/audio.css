@@ -1,0 +1,27 @@
+.audio-player {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10000;
+    cursor: pointer;
+  }
+  
+  .music-icon {
+    font-size: 2rem;
+    color: var(--gold);
+    transition: transform 0.3s ease;
+  }
+  
+  .music-icon.playing {
+    animation: pulse 1.2s infinite ease-in-out;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+  }
+  
