@@ -10,3 +10,7 @@ body {
   background-color: var(--ivory) !important;
   color: var(--muted-navy);
 }
+
+p {
+   color: var(--muted-navy);
+}
