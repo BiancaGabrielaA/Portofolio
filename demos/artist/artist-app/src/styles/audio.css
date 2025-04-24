@@ -5,7 +5,43 @@
     z-index: 10000;
     cursor: pointer;
   }
+
+.music-popup {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--ivory);
+    color: var(--muted-navy);
+    padding: 1rem 1.5rem;
+    border: 1px solid var(--muted-navy);
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    z-index: 9999;
+    text-align: center;
+  } 
   
+  .popup-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .popup-actions button {
+    padding: 0.4rem 1rem;
+    background-color: var(--muted-navy);
+    color: var(--ivory);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+  }
+  
+  .popup-actions button:hover {
+    background-color: var(--deep-burgundy);
+  }
+
   .music-icon {
     font-size: 2rem;
     color: var(--gold);
@@ -15,6 +51,10 @@
   .music-icon.playing {
     animation: pulse 1.2s infinite ease-in-out;
   }
+  .audio-player.hidden {
+    display: none;
+  }
+  
   
   @keyframes pulse {
     0%, 100% {

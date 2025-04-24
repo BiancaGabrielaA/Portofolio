@@ -14,7 +14,7 @@
   /* Special title styles for the main title */
 .title-main {
     font-family: 'Playfair Display', serif;
-    font-size: 4rem;
+    font-size: 5rem;
     font-weight: 700;
     -webkit-background-clip: text;
     color: var(--muted-navy);

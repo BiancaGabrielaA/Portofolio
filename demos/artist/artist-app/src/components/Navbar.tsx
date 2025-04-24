@@ -13,8 +13,7 @@ export default function Navbar({ setCurrentPage }: NavbarProps) {
                 <button onClick={() => setCurrentPage(1)}>About</button>
                 <button onClick={() => setCurrentPage(2)}>Compositions</button>
                 <button onClick={() => setCurrentPage(3)}>Tour Dates</button>
-                <button onClick={() => setCurrentPage(4)}>Merch</button>
-                <button onClick={() => setCurrentPage(5)}>Booking</button>
+                <button onClick={() => setCurrentPage(4)}>Booking</button>
             </div>
         </nav>
     );
