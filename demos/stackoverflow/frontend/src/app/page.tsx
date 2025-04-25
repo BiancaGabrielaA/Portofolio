@@ -9,6 +9,37 @@ export default function Home() {
   const [url, setUrl] = useState("");
   const [activeTab, setActiveTab] = useState("Params");
 
+  const handleSend = async () => {
+    try {
+      const options: RequestInit = {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+  
+      // Add body only for methods that support it (POST, PUT, PATCH)
+      if (method === "POST" || method === "PUT" || method === "PATCH") {
+        options.body = JSON.stringify({
+          url,
+          headers: {}, // Include any custom headers
+          body: "",    // Body content, if any
+        });
+      }
+
+      console.log('URL:', url);
+      console.log('Options:', options);
+  
+      //const response = await fetch(url, options);
+     // const data = await response.json();
+     // console.log("Response from backend:", data);
+    } catch (error) {
+      console.error("Error sending request:", error);
+    }
+  };
+  
+  
+
   return (
     <div className="items-start justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-sans bg-gray-50 text-sm text-gray-800">
 
@@ -35,7 +66,10 @@ export default function Home() {
           className="flex-grow p-2 border border-gray-300 rounded"
         />
 
-        <button className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700">
+        <button 
+            className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700"
+            onClick={handleSend}
+        >
           Send
         </button>
       </div>
