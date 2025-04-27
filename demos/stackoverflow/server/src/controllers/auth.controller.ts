@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 
 export const googleCallback = (req: Request, res: Response) => {
-  res.redirect('/auth/success');
+  res.redirect('http://localhost:5173/dashboard');
 };
 
 export const loginSuccess = (req: Request, res: Response) => {
