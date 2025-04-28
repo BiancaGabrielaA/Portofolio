@@ -1,8 +1,12 @@
-import { Document, ObjectId } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 
-export interface IQuestion extends Document {
-    description: string;
-    user: ObjectId;
-    answers: any[]; // or: Array<ObjectId> if referencing another model
-    likes: number;
-  }
+const questionSchema = new Schema({
+  text:       { type: String, required: true },
+  userId:     { type: Types.ObjectId, ref: 'User', required: true },
+}, {
+  timestamps: true, 
+});
+
+const User = model('User', questionSchema);
+
+export default User;

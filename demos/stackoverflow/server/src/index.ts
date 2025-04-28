@@ -5,6 +5,7 @@ import passport from 'passport';
 import session from 'express-session';
 import authRoutes from './routes/auth.routes.ts';
 import './config/passport.ts';
+import './config/connection.ts'
 
 async function start() {
 
