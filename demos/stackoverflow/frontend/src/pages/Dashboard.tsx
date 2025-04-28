@@ -1,12 +1,12 @@
-import Dropdown from "../components/Dropdown";
 import React, { useState } from 'react';
+import Dropdown from "../components/Dropdown";
 import URLInput from "../components/InputText";
 import ParamsRequest from "../components/ParamsRequest";
 import Sidebar from "../components/Sidebar";
 
 export default function Dashboard() {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [url, setUrl] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<string>('GET');
+  const [url, setUrl] = useState<string>('');
 
   const handleOptionSelect = (option: string) => {
     setSelectedOption(option);
@@ -16,10 +16,26 @@ export default function Dashboard() {
     setUrl(newUrl);
   };
 
+  const handleCollectionSelect = (method: string, presetUrl: string) => {
+    setSelectedOption(method);
+    setUrl(presetUrl);
+  };
+
+  const handleSubmit = async () => {
+    const response = await fetch(`http://localhost:5050${url}`, {
+      method: selectedOption,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+  };
+
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <Sidebar />
+      <Sidebar onSelectCollection={handleCollectionSelect} />
 
       {/* Main Dashboard Content */}
       <div className="flex-1">
@@ -27,7 +43,8 @@ export default function Dashboard() {
           <div className="p-5 flex items-center space-x-4 w-full max-w-5xl">
             <Dropdown
               options={['GET', 'POST', 'PUT', 'PATCH', 'DELETE']}
-              onSelect={handleOptionSelect}
+              value={selectedOption}  // controlled value here
+              onSelect={handleOptionSelect}  // onSelect to handle changes
             />
 
             <div className="w-full">
@@ -36,7 +53,7 @@ export default function Dashboard() {
 
             <div>
               <button
-                onClick={() => console.log('Sending to backend:', { url, method: selectedOption })}
+                onClick={handleSubmit}
                 className="bg-blue-500 text-white py-2 px-4 rounded"
               >
                 Submit

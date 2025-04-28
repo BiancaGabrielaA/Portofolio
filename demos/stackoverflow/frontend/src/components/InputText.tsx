@@ -11,7 +11,7 @@ const URLInput =  ({ value, onChange }: URLInputProps) => {
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder="Enter URL"
-      className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-96"
+      className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
     />
   );
 };
