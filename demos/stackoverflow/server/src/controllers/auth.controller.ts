@@ -52,9 +52,6 @@ export const logout = (req: Request, res: Response): void => {
 };
 
 export const checkAuth = (req: Request, res: Response) => {
-  console.log('SESSION:', req.session);
-  console.log('USER:', req.user);
-
   if (req.isAuthenticated && req.isAuthenticated()) {
     return res.json({ authenticated: true, user: req.user });
   } else {

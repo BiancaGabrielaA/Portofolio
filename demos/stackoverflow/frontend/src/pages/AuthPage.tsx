@@ -7,6 +7,7 @@ import { API_ROUTES } from '../config/api';
 
 
 export default function AuthPage() {
+  const navigate = useNavigate(); 
   const { setIsAuthenticated } = useAuth();
   const [isLogin, setIsLogin] = useState(true);  
   const [form, setForm] = useState(
@@ -19,9 +20,14 @@ export default function AuthPage() {
   )
 
   const [passwordError, setPasswordError] = useState<string | null>(null); 
-  const navigate = useNavigate();  
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
+
+  const validatePassword = (password: string) => {
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+    return passwordRegex.test(password);
+  };
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,7 +59,15 @@ export default function AuthPage() {
     e.preventDefault();
 
     if (form.password !== form.repeatPassword) {
-      setPasswordError('Passwords do not match');
+      toast.error('Passwords do not match');
+      return;
+    }
+    if (!emailRegex.test(form.email)) {
+      toast.error('Invalid email address');
+      return;
+    }
+    if (!validatePassword(form.password)) {
+      toast.error('Password must be at least 6 characters and include a letter, number, and special character');
       return;
     }
 
@@ -170,7 +184,7 @@ export default function AuthPage() {
                   className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 border-none focus:outline-none focus:ring-0"
                   tabIndex={-1}
                 >
-                  {showRepeatPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+                  {showRepeatPassword ? <FiEye size={20} /> : <FiEyeOff size={20} />}
                 </button>
               </div>
               {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
