@@ -44,7 +44,6 @@ export default function AuthPage() {
   
       if (response.ok && data.success) {
         setIsAuthenticated(true);
-        console.log(data.user)
         setUser({ name: data.user.name, email: data.user.email });
       } else {
         setIsAuthenticated(false);
