@@ -5,19 +5,25 @@ import { API_ROUTES } from '../config/api';
 type AuthContextType = {
   isAuthenticated: boolean;
   setIsAuthenticated: (value: boolean) => void;
+  user: { name: string; email: string } | null;
+  setUser: (user: { name: string; email: string }) => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState<{ name: string; email: string } | null>(null);
 
-  // 🧠 Check auth status from backend on mount
   useEffect(() => {
     axios
       .get(API_ROUTES.CHECK_AUTH, { withCredentials: true })
       .then((res) => {
         setIsAuthenticated(res.data.authenticated);
+        setUser({
+          name: res.data.user.name,
+          email: res.data.user.email,
+        });
       })
       .catch((err) => {
         console.error('Auth check failed:', err);
@@ -26,7 +32,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+    <AuthContext.Provider value={{ user, setUser, isAuthenticated, setIsAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );

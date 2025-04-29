@@ -116,7 +116,17 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         return;
       }
 
-      res.json({ success: true, message: 'Login successful' });
+      // Send back the user information (excluding password)
+      const userData = {
+        name: user.username,
+        email: user.email,
+      };
+
+      res.json({
+        success: true,
+        message: 'Login successful',
+        user: userData, // Include user info in the response
+      });
     });
 
   } catch (error) {
@@ -124,6 +134,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 };
+
 
 
 const authControllers = {

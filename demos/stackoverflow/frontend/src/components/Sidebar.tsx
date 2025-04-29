@@ -19,7 +19,7 @@ interface SidebarProps {
 export default function Sidebar({ onSelectCollection}: SidebarProps) {
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState<number | null>(null); 
-  const { setIsAuthenticated } = useAuth();
+  const { user, setIsAuthenticated } = useAuth();
 
   const handleLogout = async () => {
     try {
@@ -71,7 +71,7 @@ export default function Sidebar({ onSelectCollection}: SidebarProps) {
       <div className="flex items-center space-x-3 p-2 bg-gray-700 rounded-md cursor-pointer">
         <FiUser className="text-white size-6" />
         <div>
-          <div className="font-semibold">Bianca</div>
+          <div className="font-semibold">{user?.name}</div>
           <div
             className="mt-1 border border-gray-400 text-gray-300 text-xs rounded-md px-2 py-1 hover:bg-red-500 hover:text-white hover:border-red-500 transition duration-200"
             onClick={handleLogout}

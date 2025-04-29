@@ -8,7 +8,7 @@ import { API_ROUTES } from '../config/api';
 
 export default function AuthPage() {
   const navigate = useNavigate(); 
-  const { setIsAuthenticated } = useAuth();
+  const { setUser, setIsAuthenticated } = useAuth();
   const [isLogin, setIsLogin] = useState(true);  
   const [form, setForm] = useState(
     {
@@ -44,6 +44,8 @@ export default function AuthPage() {
   
       if (response.ok && data.success) {
         setIsAuthenticated(true);
+        console.log(data.user)
+        setUser({ name: data.user.name, email: data.user.email });
       } else {
         setIsAuthenticated(false);
         toast.error(data.message || 'Login unsuccessful');
