@@ -16,7 +16,7 @@
       "noEmit": true,
       "typeRoots": ["./node_modules/@types", "./src/types"]
     },
-     "type": "module",
+    "types": ["node", "express"],
     "include": ["src/**/*"],
     "exclude": ["dist"]
 }

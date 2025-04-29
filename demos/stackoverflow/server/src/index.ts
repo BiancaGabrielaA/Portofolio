@@ -24,6 +24,11 @@ async function start() {
         secret: process.env.SESSION_SECRET!,
         resave: false,
         saveUninitialized: false,
+        cookie: {
+            httpOnly: true, // Prevent JS access
+            secure: process.env.NODE_ENV === 'production', // Set to true in production with HTTPS
+            maxAge: 1000 * 60 * 60 * 24, // 1 day
+          },
       }));
 
     app.use(passport.initialize());

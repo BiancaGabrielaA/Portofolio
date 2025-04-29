@@ -42,9 +42,11 @@ export default function AuthPage({ setIsAuthenticated }: AuthPageProps) {
         setIsAuthenticated(true); 
         navigate('/dashboard');
       } else {
+        setIsAuthenticated(false); 
         toast.error(data.message || 'Login unsuccessful');
       }
     } catch (networkError) {
+      setIsAuthenticated(false); 
       console.error('Network or CORS error:', networkError);
       toast.error('Network error — could not reach server');
     }

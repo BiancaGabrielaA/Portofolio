@@ -94,7 +94,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const login = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response): Promise<void> => {
   try {
     console.log(req.body);
     const email = req.body.email;
@@ -103,13 +103,15 @@ const login = async (req: Request, res: Response) => {
     // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ success: false, message: 'Invalid email or password' });
+      res.status(400).json({ success: false, message: 'Invalid email or password' });
+      return;
     }
 
     // Check if the password is correct
     const isPasswordValid = await argon2.verify(user.password, password);
     if (!isPasswordValid) {
-      return res.status(400).json({ success: false, message: 'Invalid email or password' });
+      res.status(400).json({ success: false, message: 'Invalid email or password' });
+      return;
     }
 
     // Password is valid, you can proceed (e.g., create token or session)
@@ -117,7 +119,8 @@ const login = async (req: Request, res: Response) => {
     res.json({ success: true, message: 'Login successful' });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ success: false, message: 'Internal server error' });
+    res.status(500).json({ success: false, message: 'Internal server error' });
+    return;
   }
 };
 
