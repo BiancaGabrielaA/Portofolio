@@ -19,6 +19,7 @@ async function start() {
         origin: 'http://localhost:5173', 
         credentials: true,
     }));
+    
     app.use(express.json());
     app.use(session({
         secret: process.env.SESSION_SECRET!,
@@ -26,8 +27,9 @@ async function start() {
         saveUninitialized: false,
         cookie: {
             httpOnly: true, // Prevent JS access
-            secure: process.env.NODE_ENV === 'production', // Set to true in production with HTTPS
+            secure: false, // Set to true in production with HTTPS
             maxAge: 1000 * 60 * 60 * 24, // 1 day
+            sameSite: 'lax',
           },
       }));
 

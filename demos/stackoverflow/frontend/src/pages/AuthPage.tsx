@@ -32,27 +32,23 @@ export default function AuthPage({ setIsAuthenticated }: AuthPageProps) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
-        credentials: 'include',
+        credentials: 'include',  
       });
   
       const data = await response.json();
   
       if (response.ok && data.success) {
-        console.log(data.success);
-        setIsAuthenticated(true); 
-        navigate('/dashboard');
+        setIsAuthenticated(true);
       } else {
-        setIsAuthenticated(false); 
+        setIsAuthenticated(false);
         toast.error(data.message || 'Login unsuccessful');
       }
     } catch (networkError) {
-      setIsAuthenticated(false); 
       console.error('Network or CORS error:', networkError);
       toast.error('Network error — could not reach server');
+      setIsAuthenticated(false);
     }
   };
-  
-  
 
   const handleRegisterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

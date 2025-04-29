@@ -3,21 +3,22 @@ import AuthPage from './pages/AuthPage';
 import Dashboard from './pages/Dashboard';
 import { useEffect, useState } from 'react';
 import { API_ROUTES } from './config/api';
+import axios from 'axios';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
-
-    fetch(API_ROUTES.CHECK_AUTH, {
-      credentials: 'include',
+    axios.get(API_ROUTES.CHECK_AUTH, {
+      withCredentials: true,
     })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.authenticated) {
+      .then((res) => {
+        if (res.data.authenticated) {
+          console.log(true);
           setIsAuthenticated(true);
         } else {
+          console.log(false);
           setIsAuthenticated(false);
         }
       })
@@ -30,8 +31,10 @@ function App() {
   useEffect(() => {
     if (isAuthenticated === null) return; 
     if (isAuthenticated) {
+      console.log('/dashboard')
       navigate('/dashboard');
     } else {
+      console.log('/login')
       navigate('/login');
     }
   }, [isAuthenticated, navigate]);

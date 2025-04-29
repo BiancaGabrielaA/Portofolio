@@ -46,17 +46,19 @@ export const logout = (req: Request, res: Response): void => {
     }
     req.session.destroy(() => {
       res.clearCookie('connect.sid');
-      // Respond with success instead of redirecting directly
       res.json({ success: true, message: 'Logout successful' });
     });
   });
 };
 
-export const checkAuth = (req: Request, res: Response): void => {
+export const checkAuth = (req: Request, res: Response) => {
+  console.log('SESSION:', req.session);
+  console.log('USER:', req.user);
+
   if (req.isAuthenticated && req.isAuthenticated()) {
-    res.json({ authenticated: true, user: req.user });
+    return res.json({ authenticated: true, user: req.user });
   } else {
-    res.json({ authenticated: false, user: null });
+    return res.json({ authenticated: false });
   }
 };
 
@@ -96,31 +98,33 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
 export const login = async (req: Request, res: Response): Promise<void> => {
   try {
-    console.log(req.body);
-    const email = req.body.email;
-    const password =  req.body.password;
+    const { email, password } = req.body;
 
-    // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
       res.status(400).json({ success: false, message: 'Invalid email or password' });
       return;
     }
 
-    // Check if the password is correct
     const isPasswordValid = await argon2.verify(user.password, password);
     if (!isPasswordValid) {
       res.status(400).json({ success: false, message: 'Invalid email or password' });
       return;
     }
 
-    // Password is valid, you can proceed (e.g., create token or session)
-    console.log('works');
-    res.json({ success: true, message: 'Login successful' });
+    req.login(user, (err) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: 'Session creation failed' });
+        return;
+      }
+
+      res.json({ success: true, message: 'Login successful' });
+    });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: 'Internal server error' });
-    return;
   }
 };
 
