@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { useAuth } from '../context/AuthContext';
 import { API_ROUTES } from '../config/api';
 
-type AuthPageProps = {
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean | null>>;
-};
 
-export default function AuthPage({ setIsAuthenticated }: AuthPageProps) {
+export default function AuthPage() {
+  const { setIsAuthenticated } = useAuth();
   const [isLogin, setIsLogin] = useState(true);  
   const [form, setForm] = useState(
     {

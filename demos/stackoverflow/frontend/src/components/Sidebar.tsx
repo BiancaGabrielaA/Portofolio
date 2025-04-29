@@ -3,6 +3,7 @@ import { FiUser } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { API_ROUTES } from '../config/api';
+import { useAuth } from '../context/AuthContext';
 
 const collections = [
   { name: "Get Questions", method: "GET", url: "/questions" },
@@ -15,9 +16,10 @@ interface SidebarProps {
   onSelectCollection: (method: string, url: string) => void;
 }
 
-export default function Sidebar({ onSelectCollection }: SidebarProps) {
+export default function Sidebar({ onSelectCollection}: SidebarProps) {
   const navigate = useNavigate();
-  const [activeIndex, setActiveIndex] = useState<number | null>(null); // to highlight selected collection
+  const [activeIndex, setActiveIndex] = useState<number | null>(null); 
+  const { setIsAuthenticated } = useAuth();
 
   const handleLogout = async () => {
     try {
@@ -29,7 +31,7 @@ export default function Sidebar({ onSelectCollection }: SidebarProps) {
       const data = await response.json();
   
       if (data.success) {
-        
+        setIsAuthenticated(false);
         navigate('/login');
       } else {
         toast.error(data.message || 'Logout unsuccessful');
