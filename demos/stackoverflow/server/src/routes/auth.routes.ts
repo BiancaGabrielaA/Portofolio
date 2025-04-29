@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import passport from 'passport';
-import { googleCallback, checkAuth, loginFailed, loginSuccess, logout, register } from '../controllers/auth.controller.ts';
+import authControllers from '../controllers/auth.controller.ts';
 
 
 const router = Router();
@@ -9,14 +9,15 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 
 router.get('/google/callback',
   passport.authenticate('google', { failureRedirect: '/auth/failed' }),
-  googleCallback
+  authControllers.googleCallback
 );
 
-router.get('/success', loginSuccess);
-router.get('/failed', loginFailed);
-router.get('/logout', logout);
+router.get('/success', authControllers.loginSuccess);
+router.get('/failed', authControllers.loginFailed);
+router.get('/logout', authControllers.logout);
 
-router.get('/check-auth', checkAuth);
-router.post('/register', register);
+router.get('/check-auth', authControllers.checkAuth);
+router.post('/register', authControllers.register);
+router.post('/login', authControllers.login);
 
 export default router;

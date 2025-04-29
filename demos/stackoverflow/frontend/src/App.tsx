@@ -2,44 +2,52 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import AuthPage from './pages/AuthPage';
 import Dashboard from './pages/Dashboard';
 import { useEffect, useState } from 'react';
+import { API_ROUTES } from './config/api';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:5050/auth/check-auth', {
-      credentials: 'include'
+
+    fetch(API_ROUTES.CHECK_AUTH, {
+      credentials: 'include',
     })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Unauthorized');
-      })
-      .then(data => {
-        if (data.user) {
-          setIsAuthenticated(true); // <- set it here ✅
-          navigate('/dashboard');
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.authenticated) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
         }
       })
-      .catch(error => {
-        console.log('User is not authenticated', error);
-        setIsAuthenticated(false); // <- also make sure to set false
+      .catch((err) => {
+        console.error('Network error checking auth:', err);
+        setIsAuthenticated(false);
       });
-  }, [navigate]);
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated === null) return; 
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    } else {
+      navigate('/login');
+    }
+  }, [isAuthenticated, navigate]);
+
+  if (isAuthenticated === null) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Routes>
-      <Route path="/login" element={<AuthPage />} />
+      <Route path="/login" element={<AuthPage setIsAuthenticated={setIsAuthenticated} />} />
       <Route
         path="/dashboard"
         element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
       />
-      <Route
-        path="/"
-        element={<Navigate to="/login" />}
-      />
+      <Route path="/" element={<Navigate to="/login" />} />
     </Routes>
   );
 }

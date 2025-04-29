@@ -2,68 +2,73 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { API_ROUTES } from '../config/api';
 
-export default function AuthPage() {
+type AuthPageProps = {
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean | null>>;
+};
+
+export default function AuthPage({ setIsAuthenticated }: AuthPageProps) {
   const [isLogin, setIsLogin] = useState(true);  
+  const [form, setForm] = useState(
+    {
+      username: '',
+      email: '',
+      password: '',
+      repeatPassword: ''
+    }
+  )
+
   const [passwordError, setPasswordError] = useState<string | null>(null); 
   const navigate = useNavigate();  
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
 
-  // Handle Login form submission
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const email = (e.target as HTMLFormElement).email.value;
-    const password = (e.target as HTMLFormElement).password.value;
-
-    // Perform login with API request (adjust URL and data as needed)
-    fetch('http://localhost:5050/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-      credentials: 'include',
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          navigate('/dashboard');
-        } else {
-          toast.error('Login unsuccessful', {
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-          });
-        }
+  
+    try {
+      const response = await fetch(API_ROUTES.LOGIN, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+        credentials: 'include',
       });
+  
+      const data = await response.json();
+  
+      if (response.ok && data.success) {
+        console.log(data.success);
+        setIsAuthenticated(true); 
+        navigate('/dashboard');
+      } else {
+        toast.error(data.message || 'Login unsuccessful');
+      }
+    } catch (networkError) {
+      console.error('Network or CORS error:', networkError);
+      toast.error('Network error — could not reach server');
+    }
   };
+  
+  
 
-  // Handle Register form submission
   const handleRegisterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const username = (e.target as HTMLFormElement).username.value;
-    const email = (e.target as HTMLFormElement).email.value;
-    const password = (e.target as HTMLFormElement).password.value;
-    const repeatPassword = (e.target as HTMLFormElement).repeatPassword.value;
 
-    // Check if passwords match
-    if (password !== repeatPassword) {
+    if (form.password !== form.repeatPassword) {
       setPasswordError('Passwords do not match');
       return;
     }
 
     try {
-      const res = await fetch('http://localhost:5050/auth/register', {
+      const res = await fetch(API_ROUTES.REGISTER, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify(form),
         credentials: 'include',
       });
   
       if (!res.ok) {
-        // Server responded with 4xx/5xx
         const err = await res.json();
         return toast.error(err.message || 'Registration failed');
       }
@@ -80,9 +85,8 @@ export default function AuthPage() {
     }
   };
 
-  // Google login redirect
   const googleLogin = () => {
-    window.location.href = 'http://localhost:5050/auth/google';  // Adjust this URL to match your Google Auth route
+    window.location.href = API_ROUTES.GOOGLE_LOGIN;  
   };
 
   return (
@@ -97,6 +101,11 @@ export default function AuthPage() {
               <input
                 type="text"
                 id="username"
+                name="username"
+                value={form.username}
+                onChange={(e) =>
+                  setForm({ ...form, [e.target.name]: e.target.value })
+                }
                 className="w-full p-2 border rounded"
                 required
               />
@@ -108,19 +117,28 @@ export default function AuthPage() {
             <input
               type="email"
               id="email"
+              name="email"
               className="w-full p-2 border rounded"
+              value={form.email}
+              onChange={(e) =>
+                setForm({ ...form, [e.target.name]: e.target.value })
+              }
               required
             />
           </div>
 
-          {/* Password Field */}
           <div className="mb-4">
             <label htmlFor="password" className="block">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? 'text' : 'password'}
                 id="password"
+                name="password"
                 className="w-full p-2 border rounded pr-10"
+                value={form.password}
+                onChange={(e) =>
+                  setForm({ ...form, [e.target.name]: e.target.value })
+                }
                 required
               />
               <button
@@ -134,7 +152,6 @@ export default function AuthPage() {
             </div>
           </div>
 
-          {/* Repeat Password Field */}
           {!isLogin && (
             <div className="mb-4">
               <label htmlFor="repeatPassword" className="block">Repeat Password</label>
@@ -142,7 +159,12 @@ export default function AuthPage() {
                 <input
                   type={showRepeatPassword ? 'text' : 'password'}
                   id="repeatPassword"
+                  name="repeatPassword"
                   className="w-full p-2 border rounded pr-10"
+                  value={form.repeatPassword}
+                  onChange={(e) =>
+                    setForm({ ...form, [e.target.name]: e.target.value })
+                  }
                   required
                 />
                 <button
@@ -158,21 +180,13 @@ export default function AuthPage() {
             </div>
           )}
 
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white p-2 rounded"
-          >
-            {isLogin ? 'Login' : 'Register'}
-          </button>
+          <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded"
+             > {isLogin ? 'Login' : 'Register'} </button>
         </form>
 
         <div className="my-4 text-center">
-          <button
-            onClick={googleLogin}
-            className="w-full bg-red-500 text-white p-2 rounded"
-          >
-            Login with Google
-          </button>
+          <button onClick={googleLogin} className="w-full bg-red-500 text-white p-2 rounded"
+            > Login with Google </button>
         </div>
 
         <div className="text-center">

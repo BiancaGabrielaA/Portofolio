@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FiUser } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import { API_ROUTES } from '../config/api';
 
 const collections = [
   { name: "Get Questions", method: "GET", url: "/questions" },
@@ -19,13 +21,22 @@ export default function Sidebar({ onSelectCollection }: SidebarProps) {
 
   const handleLogout = async () => {
     try {
-      await fetch('http://localhost:5050/auth/logout', {
-        method: 'GET',  // You can also change this to POST if your backend expects it
-        credentials: 'include'
+      const response = await fetch(API_ROUTES.LOGOUT, {
+        method: 'GET',
+        credentials: 'include',
       });
-      navigate('/login'); // Redirect to login page
-    } catch (error) {
-      console.error('Logout failed:', error);
+  
+      const data = await response.json();
+  
+      if (data.success) {
+        
+        navigate('/login');
+      } else {
+        toast.error(data.message || 'Logout unsuccessful');
+      }
+    } catch (networkError) {
+      console.error('Network error during logout:', networkError);
+      toast.error('Network error—could not reach server');
     }
   };
 
@@ -35,7 +46,8 @@ export default function Sidebar({ onSelectCollection }: SidebarProps) {
   };
 
   return (
-    <div className="w-64 bg-gray-800 text-white flex flex-col justify-between min-h-screen p-4">
+    <div>
+<div className="w-64 bg-gray-800 text-white flex flex-col justify-between min-h-screen p-4">
       <div>
         <h2 className="text-xl font-bold mb-4">Collections</h2>
         <div className="space-y-2">
@@ -67,5 +79,8 @@ export default function Sidebar({ onSelectCollection }: SidebarProps) {
         </div>
       </div>
     </div>
+    <ToastContainer />
+    </div>
+    
   );
 }
