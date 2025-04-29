@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { FaGoogle } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 import { API_ROUTES } from '../config/api';
 
@@ -197,9 +198,14 @@ export default function AuthPage() {
         </form>
 
         <div className="my-4 text-center">
-          <button onClick={googleLogin} className="w-full bg-red-500 text-white p-2 rounded"
-            > Login with Google </button>
-        </div>
+            <button 
+              onClick={googleLogin} 
+              className="w-full bg-red-500 text-white p-3 rounded-md flex items-center justify-center space-x-3 hover:bg-red-600 transition duration-300"
+            >
+              <FaGoogle size={24} />
+              <span className="font-semibold text-lg">Login with Google</span>
+            </button>
+          </div>
 
         <div className="text-center">
           <p>

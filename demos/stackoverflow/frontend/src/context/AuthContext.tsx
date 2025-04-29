@@ -20,10 +20,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       .get(API_ROUTES.CHECK_AUTH, { withCredentials: true })
       .then((res) => {
         setIsAuthenticated(res.data.authenticated);
-        setUser({
-          name: res.data.user.name,
-          email: res.data.user.email,
-        });
+        if(res.data.authenticated == true){
+          setUser({
+            name: res.data.user.name,
+            email: res.data.user.email,
+          });
+        }
       })
       .catch((err) => {
         console.error('Auth check failed:', err);

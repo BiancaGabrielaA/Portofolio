@@ -7,7 +7,7 @@ import { useAuth } from '../context/AuthContext';
 
 const collections = [
   { name: "Get Questions", method: "GET", url: "/questions" },
-  { name: "Post Question", method: "POST", url: "/questions" },
+  { name: "Post Question", method: "POST", url: "/question/insert" },
   { name: "Delete Question", method: "DELETE", url: "/questions/:id" },
   { name: "Update Question", method: "PATCH", url: "/questions/:id" },
 ];

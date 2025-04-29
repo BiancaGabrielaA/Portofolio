@@ -2,12 +2,18 @@ import React, { useState } from "react";
 
 const tabs = ["Params", "Authorization", "Headers", "Body"];
 
-export default function ParamsRequest() {
+interface ParamsRequestProps {
+  body: string;
+  onBodyChange: (newBody: string) => void;
+}
+
+
+export default function ParamsRequest({ body, onBodyChange }: ParamsRequestProps) {
   const [activeTab, setActiveTab] = useState("Params");
+  
 
   return (
     <div className="w-full">
-      {/* Tabs */}
       <div className="flex border-b border-gray-300">
         {tabs.map((tab) => (
           <button
@@ -36,7 +42,15 @@ export default function ParamsRequest() {
           <div>Headers content here...</div>
         )}
         {activeTab === "Body" && (
-          <div>Body content here...</div>
+          <div>
+          <textarea
+              className="w-full p-2 border border-gray-300 rounded-md"
+              rows={10}
+              value={body}
+              onChange={(e) => onBodyChange(e.target.value)}
+              placeholder="Enter the request body as JSON..."
+            ></textarea>
+          </div>
         )}
       </div>
     </div>

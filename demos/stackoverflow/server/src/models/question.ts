@@ -7,6 +7,6 @@ const questionSchema = new Schema({
   timestamps: true, 
 });
 
-const User = model('User', questionSchema);
+const Question = model('Question', questionSchema);
 
-export default User;
+export default Question;

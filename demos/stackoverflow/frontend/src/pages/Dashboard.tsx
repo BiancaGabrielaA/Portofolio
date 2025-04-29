@@ -3,10 +3,13 @@ import Dropdown from "../components/Dropdown";
 import URLInput from "../components/InputText";
 import ParamsRequest from "../components/ParamsRequest";
 import Sidebar from "../components/Sidebar";
+import { API_BASE_URL } from "../config/api"
 
 export default function Dashboard() {
   const [selectedOption, setSelectedOption] = useState<string>('GET');
+  const [responseRequest, setResponseRequest] = useState("");
   const [url, setUrl] = useState<string>('');
+  const [requestBody, setRequestBody] = useState<string>('');
 
   const handleOptionSelect = (option: string) => {
     setSelectedOption(option);
@@ -22,15 +25,41 @@ export default function Dashboard() {
   };
 
   const handleSubmit = async () => {
-    const response = await fetch(`http://localhost:5050${url}`, {
-      method: selectedOption,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await response.json();
-    console.log(data);
+    try {
+      const options: RequestInit = {
+        method: selectedOption,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include'
+      };
+  
+      if (selectedOption !== 'GET') {
+        let parsedBody = requestBody;
+        try {
+          parsedBody = JSON.parse(requestBody);
+        } catch (e) {
+          return setResponseRequest('Error: ' + e);
+        }
+  
+        options.body = JSON.stringify(parsedBody); // Convert back to JSON string
+      }
+     
+      const response = await fetch(API_BASE_URL + url, options);
+      console.log(response);
+      const text = await response.text();
+  
+      if (text) {
+        const data = JSON.parse(text);
+        setResponseRequest(JSON.stringify(data, null, 2));
+      } else {
+        setResponseRequest('No content returned.');
+      }
+    } catch (error) {
+      setResponseRequest(`Error: ${error}`);
+    }
   };
+  
 
   return (
     <div className="flex min-h-screen">
@@ -64,9 +93,12 @@ export default function Dashboard() {
 
         <div className="flex items-center justify-center w-full mt-8">
           <div className="w-full max-w-5xl">
-            <ParamsRequest />
+             <ParamsRequest body={requestBody} onBodyChange={setRequestBody} />
           </div>
         </div>
+        <pre className="bg-gray-100 p-4 mt-4 rounded text-sm overflow-auto">
+          {responseRequest}
+        </pre>
       </div>
     </div>
   );

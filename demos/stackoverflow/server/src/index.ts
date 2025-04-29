@@ -3,7 +3,9 @@ import dotenv from 'dotenv'
 import cors from 'cors';
 import passport from 'passport';
 import session from 'express-session';
+import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.routes.ts';
+import questionRoutes from './routes/question.routes.ts';
 import './config/passport.ts';
 import './config/connection.ts'
 
@@ -35,7 +37,10 @@ async function start() {
 
     app.use(passport.initialize());
     app.use(passport.session());
+    app.use(cookieParser());
+    
     app.use('/auth', authRoutes);
+    app.use('/question', questionRoutes)
 
     app.get('/', (req, res) => {
         res.send("Hello World");

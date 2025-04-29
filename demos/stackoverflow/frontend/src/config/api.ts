@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5050';
+export const API_BASE_URL = 'http://localhost:5050';
 
 export const API_ROUTES = {
   LOGIN: `${API_BASE_URL}/auth/login`,
@@ -8,4 +8,7 @@ export const API_ROUTES = {
   LOGOUT: `${API_BASE_URL}/auth/logout`
 };
 
-export default API_ROUTES;
+export default {
+  API_BASE_URL,
+  API_ROUTES
+};

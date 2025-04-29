@@ -3,7 +3,9 @@ import { getQuestions, insertQuestion, getQuestion, getUserQuestions } from '../
 
 const router = Router();
 
-router.get('/questions', getQuestions);
-router.post('/question', insertQuestion);
+router.get('/get-all', getQuestions);
+router.post('/insert', insertQuestion);
 router.get('/question/:questionId', getQuestion);
 router.get('/questions/:userId', getUserQuestions);
+
+export default router;
