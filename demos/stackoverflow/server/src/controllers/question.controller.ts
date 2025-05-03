@@ -30,10 +30,73 @@ export const getQuestions = async (req: Request, res: Response): Promise<void> =
   }
 };
 
-export const getQuestion = () => {
-    
-}
+export const getQuestion = async (req: Request, res: Response) => {
+  const { questionId } = req.params;
 
-export const getUserQuestions = () => {
-    
-}
+  try {
+    const question = await Question.findById(questionId);
+    if (!question) {
+      res.status(404).json({ message: 'Question not found' });
+      return 
+    }
+
+    res.status(200).json({ success: true, data: question });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const getUserQuestions = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+
+  try {
+    const questions = await Question.find({ userId });
+    res.status(200).json({ success: true, data: questions });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
+export const deleteUserQuestion = async (req: Request, res: Response) => {
+  const { questionId } = req.params;
+
+  try {
+    const deleted = await Question.findByIdAndDelete(questionId);
+    if (!deleted) {
+      res.status(404).json({ message: 'Question not found' });
+      return;
+    }
+
+    res.status(200).json({ success: true, message: 'Question deleted' });
+    return;
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+    return;
+  }
+};
+
+export const updateQuestion = async (req: Request, res: Response) => {
+  const { questionId } = req.params;
+  const { text } = req.body;  // Assuming you're updating the question's text
+
+  try {
+    // Find the question by ID and update it
+    const updatedQuestion = await Question.findByIdAndUpdate(
+      questionId,
+      { text },  // You can update other fields here as needed
+      { new: true }  // This ensures that the updated document is returned
+    );
+
+    if (!updatedQuestion) {
+      res.status(404).json({ message: 'Question not found' });
+      return;
+    }
+
+    res.status(200).json({ success: true, data: updatedQuestion });
+    return;
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+    return;
+  }
+};

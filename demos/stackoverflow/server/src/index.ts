@@ -6,6 +6,7 @@ import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.routes.ts';
 import questionRoutes from './routes/question.routes.ts';
+import userRoutes from './routes/user.routes.ts';
 import './config/passport.ts';
 import './config/connection.ts'
 
@@ -40,7 +41,9 @@ async function start() {
     app.use(cookieParser());
 
     app.use('/auth', authRoutes);
-    app.use('/questions', questionRoutes)
+    app.use('/questions', questionRoutes);
+    app.use('/users', userRoutes)
+    
 
     app.get('/', (req, res) => {
         res.send("Hello World");

@@ -20,4 +20,5 @@ router.get('/check-auth', authControllers.checkAuth);
 router.post('/register', authControllers.register);
 router.post('/login', authControllers.login);
 
+
 export default router;
