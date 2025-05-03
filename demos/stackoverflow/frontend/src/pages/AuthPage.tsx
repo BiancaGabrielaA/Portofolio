@@ -45,7 +45,8 @@ export default function AuthPage() {
   
       if (response.ok && data.success) {
         setIsAuthenticated(true);
-        setUser({ name: data.user.name, email: data.user.email });
+        setUser({ name: data.user.name, email: data.user.email});
+        localStorage.setItem('authorizedToken', data.sessionToken);
       } else {
         setIsAuthenticated(false);
         toast.error(data.message || 'Login unsuccessful');

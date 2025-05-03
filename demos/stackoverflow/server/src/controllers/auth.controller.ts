@@ -1,6 +1,8 @@
 import type { Request, Response } from 'express';
 import User from '../models/user.ts'
 import argon2 from 'argon2';
+import jwt from 'jsonwebtoken';
+import cookie from 'cookie';
 
 export const googleCallback = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -79,10 +81,8 @@ export const register = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    // Hash password with argon2
     const hashedPassword = await argon2.hash(password);
 
-    // Save user with hashed password
     const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
     
@@ -122,10 +122,23 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         email: user.email,
       };
 
+
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET!, { expiresIn: '1d' });
+
+      // Set the JWT token in an HTTP-only cookie
+      res.setHeader('Set-Cookie', cookie.serialize('token', token, {
+        httpOnly: true, // Can't be accessed by JavaScript
+        secure: process.env.NODE_ENV === 'production', // Only send over HTTPS in production
+        maxAge: 60 * 60 * 24, // 1 day
+        sameSite: 'lax', // Prevent CSRF attacks
+        path: '/', // Cookie accessible on all routes
+      }));
+
       res.json({
         success: true,
         message: 'Login successful',
         user: userData, // Include user info in the response
+        sessionToken: token
       });
     });
 

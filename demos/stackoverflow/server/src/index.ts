@@ -30,7 +30,7 @@ async function start() {
         cookie: {
             httpOnly: true, // Prevent JS access
             secure: false, // Set to true in production with HTTPS
-            maxAge: 1000 * 60 * 60 * 24, // 1 day
+            maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
             sameSite: 'lax',
           },
       }));
@@ -38,9 +38,9 @@ async function start() {
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(cookieParser());
-    
+
     app.use('/auth', authRoutes);
-    app.use('/question', questionRoutes)
+    app.use('/questions', questionRoutes)
 
     app.get('/', (req, res) => {
         res.send("Hello World");

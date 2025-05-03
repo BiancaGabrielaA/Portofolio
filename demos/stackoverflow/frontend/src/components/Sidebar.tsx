@@ -6,7 +6,7 @@ import { API_ROUTES } from '../config/api';
 import { useAuth } from '../context/AuthContext';
 
 const collections = [
-  { name: "Get Questions", method: "GET", url: "/questions" },
+  { name: "Get Questions", method: "GET", url: "/questions/get-all" },
   { name: "Post Question", method: "POST", url: "/question/insert" },
   { name: "Delete Question", method: "DELETE", url: "/questions/:id" },
   { name: "Update Question", method: "PATCH", url: "/questions/:id" },

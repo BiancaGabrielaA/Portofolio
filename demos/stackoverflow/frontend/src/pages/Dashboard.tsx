@@ -26,12 +26,15 @@ export default function Dashboard() {
 
   const handleSubmit = async () => {
     try {
+      const token = localStorage.getItem('authorizedToken');
+  
       const options: RequestInit = {
         method: selectedOption,
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         },
-        credentials: 'include'
+        credentials: 'include',
       };
   
       if (selectedOption !== 'GET') {
@@ -39,26 +42,27 @@ export default function Dashboard() {
         try {
           parsedBody = JSON.parse(requestBody);
         } catch (e) {
-          return setResponseRequest('Error: ' + e);
+          setResponseRequest('Error: ' + e);
+          return;
         }
   
-        options.body = JSON.stringify(parsedBody); // Convert back to JSON string
+        options.body = JSON.stringify(parsedBody);
       }
-     
+  
       const response = await fetch(API_BASE_URL + url, options);
-      console.log(response);
       const text = await response.text();
   
-      if (text) {
+      try {
         const data = JSON.parse(text);
         setResponseRequest(JSON.stringify(data, null, 2));
-      } else {
-        setResponseRequest('No content returned.');
+      } catch (e) {
+        setResponseRequest(`❌ JSON parse failed: ${e}\nRaw response:\n${text}`);
       }
     } catch (error) {
       setResponseRequest(`Error: ${error}`);
     }
   };
+  
   
 
   return (
@@ -96,7 +100,10 @@ export default function Dashboard() {
              <ParamsRequest body={requestBody} onBodyChange={setRequestBody} />
           </div>
         </div>
-        <pre className="bg-gray-100 p-4 mt-4 rounded text-sm overflow-auto">
+        <pre
+          className="bg-gray-100 p-4 mt-4 rounded text-sm overflow-auto"
+          style={{ height: 'calc(100vh - 400px)' }}
+        >
           {responseRequest}
         </pre>
       </div>
