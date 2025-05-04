@@ -18,4 +18,4 @@ RUN echo "Listing /app/dist:" && ls -al /app/dist
 
 # Serve using vite preview
 EXPOSE 3002
-CMD ["npm", "run", "preview"]
+CMD ["npm", "run", "dev"]

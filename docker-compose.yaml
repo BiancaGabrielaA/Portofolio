@@ -5,7 +5,7 @@ services:
     build: ./demos/stackoverflow/server
     container_name: stackoverflow-backend
     ports:
-      - "5050:5000"
+      - "5050:5050"
     environment:
       - MONGO_URI=mongodb://mongo:27017/stackoverflow
     depends_on:
@@ -15,7 +15,7 @@ services:
     build: ./demos/stackoverflow/frontend
     container_name: stackoverflow-frontend
     ports:
-      - "3001:3000"
+      - "3001:80"
     depends_on:
       - stackoverflow-server
 
@@ -23,7 +23,7 @@ services:
     build: ./demos/artist
     container_name: artist-app
     ports:
-      - "3002:3000"
+      - "3002:3002"
 
   presentation-app:
     build: ./demos/presentation
