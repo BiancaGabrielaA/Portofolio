@@ -1,6 +1,6 @@
 // app/layout.tsx
 import type { Metadata } from "next";
-import "./globals.css";
+import './globals.css';
 import { Navbar } from "./components/Navbar";
 import { ContactButton } from "./components/ContactButton";
 import { Header } from "./components/Header";

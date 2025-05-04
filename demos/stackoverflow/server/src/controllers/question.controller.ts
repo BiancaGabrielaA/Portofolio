@@ -60,6 +60,7 @@ export const getUserQuestions = async (req: Request, res: Response) => {
 
 export const deleteUserQuestion = async (req: Request, res: Response) => {
   const { questionId } = req.params;
+  console.log(`Attempting to delete question with ID: ${questionId}`); // Log the incoming ID
 
   try {
     const deleted = await Question.findByIdAndDelete(questionId);
@@ -68,13 +69,16 @@ export const deleteUserQuestion = async (req: Request, res: Response) => {
       return;
     }
 
+    console.log(`Question with ID: ${questionId} deleted`); // Log success
     res.status(200).json({ success: true, message: 'Question deleted' });
     return;
   } catch (error) {
+    console.error('Error during deletion:', error); // Log any errors
     res.status(500).json({ message: 'Server error' });
     return;
   }
 };
+
 
 export const updateQuestion = async (req: Request, res: Response) => {
   const { questionId } = req.params;

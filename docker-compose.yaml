@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  stackoverflow-server:
+    build: ./demos/stackoverflow/server
+    container_name: stackoverflow-backend
+    ports:
+      - "5050:5000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/stackoverflow
+    depends_on:
+      - mongo
+
+  stackoverflow-frontend:
+    build: ./demos/stackoverflow/frontend
+    container_name: stackoverflow-frontend
+    ports:
+      - "3001:3000"
+    depends_on:
+      - stackoverflow-server
+
+  artist-app:
+    build: ./demos/artist
+    container_name: artist-app
+    ports:
+      - "3002:3000"
+
+  presentation-app:
+    build: ./demos/presentation
+    container_name: presentation-app
+    ports:
+      - "3003:3000"
+
+  portofolio-frontend:
+    build: ./frontend
+    container_name: portofolio-frontend
+    ports:
+      - "3004:5173"
+    volumes:
+      - ./frontend:/usr/src/app #path inside the Docker container
+    command: npm run dev
+    
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - portofolio-frontend
+      - presentation-app
+      - artist-app
+      - stackoverflow-frontend
+
+volumes:
+  mongo_data:
+    driver: local

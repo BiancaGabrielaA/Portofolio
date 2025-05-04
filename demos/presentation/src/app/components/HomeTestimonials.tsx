@@ -46,7 +46,7 @@ export const HomeTestimonials = () => {
             transition={{ duration: 0.8 }}
             className="absolute w-full text-center"
           >
-            <p className="text-xl italic mb-4">"{testimonials[index].quote}"</p>
+            <p className="text-xl italic mb-4">&quot; {testimonials[index].quote} &quot;</p>
             <p className="text-sm font-bold">— {testimonials[index].name}</p>
           </motion.div>
         </AnimatePresence>
