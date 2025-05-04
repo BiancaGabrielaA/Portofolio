@@ -1,20 +1,19 @@
-# Use official Node.js image based on Debian (not Alpine, avoids musl issues)
-FROM node:18
+FROM node:lts-buster
 
-# Set working directory
-WORKDIR /usr/src/app
+# make the 'app' folder the current working directory
+WORKDIR /app
 
-# Copy package files and install dependencies
+# copy both 'package.json' and 'package-lock.json' (if available)
 COPY package*.json ./
+
+# install project dependencies
 RUN npm install
 
-# Copy the rest of your project
+# copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
 
-ENV ROLLUP_BUNDLER="classic"
+# build app for production with minification
+RUN npm run build
 
-# Expose the port Vite runs on
 EXPOSE 3004
-
-# Run the dev server
-CMD ["npm", "run", "dev"]
+CMD [ "npm", "run", "dev"]
