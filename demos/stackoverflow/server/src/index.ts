@@ -8,7 +8,7 @@ import authRoutes from './routes/auth.routes.ts';
 import questionRoutes from './routes/question.routes.ts';
 import userRoutes from './routes/user.routes.ts';
 import './config/passport.ts';
-import './config/connection.ts'
+import './config/connection.ts';
 
 async function start() {
 
