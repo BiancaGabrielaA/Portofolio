@@ -8,6 +8,7 @@
           <!-- Left: Visual / Icons / Fun Element -->
           <div class="flex-1 flex justify-center">
             <!-- Add visual or icon here -->
+            <img src="../assets/about-me.jpg" alt="Modern Mozart" width="500px" className="img-fluid rounded shadow" />
           </div>
   
           <!-- Right: Info -->
@@ -36,6 +37,7 @@
   </template>
 <script setup>
 import CV from '@/assets/cv.pdf'
+
 
 function downloadCV() {
   const link = document.createElement('a');
