@@ -102,7 +102,7 @@ export default function Dashboard() {
         </div>
         <pre
           className="bg-gray-100 p-4 mt-4 rounded text-sm overflow-auto"
-          style={{ height: 'calc(100vh - 400px)' }}
+          style={{ height: 'calc(100vh - 600px)' }}
         >
           {responseRequest}
         </pre>

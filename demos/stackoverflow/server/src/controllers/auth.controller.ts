@@ -105,19 +105,26 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
 export const login = async (req: Request, res: Response): Promise<void> => {
   try {
+
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
+    console.log(user);
     if (!user) {
       res.status(400).json({ success: false, message: 'Invalid email or password' });
       return;
     }
 
-    const isPasswordValid = user.password && await argon2.verify(user.password, password);
-    if (!isPasswordValid) {
-      res.status(400).json({ success: false, message: 'Invalid email or password' });
-      return;
+
+    if(user.password) {
+      const isPasswordValid = await argon2.verify(user.password, password);
+
+      if (!isPasswordValid) {
+        res.status(400).json({ success: false, message: 'Invalid email or password' });
+        return;
+      }
     }
+   
 
     req.login(user, (err) => {
       if (err) {
