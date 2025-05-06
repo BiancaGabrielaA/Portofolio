@@ -3,8 +3,14 @@ import User from '../models/user.ts'
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const VITE_URL = process.env.VITE_URL;
 
 export const googleCallback = async (req: Request, res: Response): Promise<void> => {
+  console.log(VITE_URL);
   try {
     const user = req.user as { email: string; name: string };
 
@@ -25,10 +31,10 @@ export const googleCallback = async (req: Request, res: Response): Promise<void>
     }
 
     req.session.userId = existing._id.toString();
-    res.redirect('http://localhost:5173/dashboard');
+    res.redirect(VITE_URL + '/dashboard');
   } catch (err) {
     console.error(err);
-    res.redirect('http://localhost:5173/login?error=google');
+    res.redirect(VITE_URL + '/login?error=google');
   }
 };
 
@@ -105,7 +111,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const isPasswordValid = await argon2.verify(user.password, password);
+    const isPasswordValid = user.password && await argon2.verify(user.password, password);
     if (!isPasswordValid) {
       res.status(400).json({ success: false, message: 'Invalid email or password' });
       return;

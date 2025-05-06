@@ -9,20 +9,39 @@ passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID!,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
   callbackURL: process.env.GOOGLE_CALLBACK_URL!,
-}, (accessToken, refreshToken, profile, done) => {
-  // This is where you'd find or create a user in DB
-  return done(null, profile);
+}, async (accessToken, refreshToken, profile, done) => {
+  try {
+    const existingUser = await User.findOne({ googleId: profile.id });
+
+    if (existingUser) {
+      return done(null, existingUser);
+    }
+
+    // If not, create a new user
+    const newUser = new User({
+      googleId: profile.id,
+      name: profile.displayName,
+      email: profile.emails?.[0].value, // may need optional chaining
+      avatar: profile.photos?.[0].value,
+    });
+
+    const savedUser = await newUser.save();
+    return done(null, savedUser);
+
+  } catch (err) {
+    return done(err, undefined);
+  }
 }));
 
 passport.serializeUser((user: any, done) => {
-  done(null, user._id);
+  done(null, user._id); // store user ID in session
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await User.findById(id);
-    done(null, user);
+    done(null, user); // attach full user to req.user
   } catch (err) {
-    done(err, null);
+    done(err, undefined);
   }
 });

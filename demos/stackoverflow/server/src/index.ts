@@ -10,16 +10,16 @@ import userRoutes from './routes/user.routes.ts';
 import './config/passport.ts';
 import './config/connection.ts';
 
-async function start() {
+dotenv.config({
+    path: "./.env"
+})
 
-    dotenv.config({
-        path: "./.env"
-    })
+async function start() {
 
     const app = express();
 
     app.use(cors({
-        origin: 'http://localhost:5173', 
+        origin: process.env.VITE_URL, 
         credentials: true,
     }));
     
