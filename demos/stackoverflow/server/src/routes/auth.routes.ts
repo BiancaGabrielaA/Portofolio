@@ -1,14 +1,16 @@
 import { Router } from 'express';
 import passport from 'passport';
 import authControllers from '../controllers/auth.controller.ts';
+import dotenv from 'dotenv';
 
+dotenv.config();
 
 const router = Router();
 
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'], session: true }));
 
 router.get('/google/callback',
-  passport.authenticate('google', { failureRedirect: '/auth/failed' }),
+  passport.authenticate('google', { failureRedirect: `auth/login`, session: true }),
   authControllers.googleCallback
 );
 

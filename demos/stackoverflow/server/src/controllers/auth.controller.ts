@@ -10,31 +10,33 @@ dotenv.config();
 const VITE_URL = process.env.VITE_URL;
 
 export const googleCallback = async (req: Request, res: Response): Promise<void> => {
-  console.log(VITE_URL);
   try {
-    const user = req.user as { email: string; name: string };
+    const user = req.user as any;
 
-    if (!user?.email) {
-      res.status(400).json({ success: false, message: 'No Google user info found' });
+    if (!user || !user.email) {
+      res.status(400).json({ success: false, message: 'Missing Google user info' });
       return;
     }
 
-    let existing = await User.findOne({ email: user.email });
+    const token = jwt.sign(
+      { userId: user._id, email: user.email },
+      process.env.JWT_SECRET!,
+      { expiresIn: '1d' }
+    );
+    // Set JWT as cookie
+    res.setHeader('Set-Cookie', cookie.serialize('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24, // 1 day
+      path: '/',
+    }));
 
-    if (!existing) {
-      // Create a new user if one doesn't exist
-      existing = await new User({
-        username: user.name,
-        email: user.email,
-        password: '',  // No password for Google login users
-      }).save();
-    }
-
-    req.session.userId = existing._id.toString();
-    res.redirect(VITE_URL + '/dashboard');
+    // Redirect to frontend with name and email in query (optional, for UI)
+    res.redirect(`${VITE_URL}/dashboard?email=${user.email}`);
   } catch (err) {
     console.error(err);
-    res.redirect(VITE_URL + '/login?error=google');
+    res.redirect(`${VITE_URL}/login?error=google`);
   }
 };
 

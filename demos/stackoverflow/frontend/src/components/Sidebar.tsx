@@ -108,13 +108,14 @@ export default function Sidebar({ onSelectCollection }: SidebarProps) {
           </div>
         </div>
     
-        {/* Bottom: User Profile + Logout */}
-        <div className="p-4 bg-gray-700 flex items-center space-x-3 border-t border-gray-600">
-          <FiUser className="text-white size-6" />
-          <div>
-            <div className="font-semibold">{user?.name}</div>
+        <div className="p-4 bg-gray-700 flex items-start space-x-3 border-t border-gray-600">
+          <FiUser className="text-white size-6 flex-shrink-0" />
+          <div className="flex flex-col flex-grow min-w-0">
+            <div className="font-semibold text-white break-words text-sm leading-tight">
+              {user?.name || user?.email}
+            </div>
             <div
-              className="mt-1 border border-gray-400 text-gray-300 text-xs rounded-md px-2 py-1 hover:bg-red-500 hover:text-white hover:border-red-500 transition duration-200"
+              className="mt-1 border border-gray-400 text-gray-300 text-xs rounded-md px-2 py-1 hover:bg-red-500 hover:text-white hover:border-red-500 transition duration-200 cursor-pointer w-fit"
               onClick={handleLogout}
             >
               Logout

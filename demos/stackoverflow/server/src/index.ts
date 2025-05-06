@@ -24,6 +24,7 @@ async function start() {
     }));
     
     app.use(express.json());
+    app.use(cookieParser());
     app.use(session({
         secret: process.env.SESSION_SECRET!,
         resave: false,
@@ -38,7 +39,6 @@ async function start() {
 
     app.use(passport.initialize());
     app.use(passport.session());
-    app.use(cookieParser());
 
     app.use('/auth', authRoutes);
     app.use('/questions', questionRoutes);

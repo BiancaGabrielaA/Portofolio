@@ -9,29 +9,26 @@ passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID!,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
   callbackURL: process.env.GOOGLE_CALLBACK_URL!,
-}, async (accessToken, refreshToken, profile, done) => {
+  passReqToCallback: true
+}, async (req, accessToken, refreshToken, profile, done) => {
   try {
     const existingUser = await User.findOne({ googleId: profile.id });
-
     if (existingUser) {
       return done(null, existingUser);
     }
-
-    // If not, create a new user
     const newUser = new User({
       googleId: profile.id,
-      name: profile.displayName,
-      email: profile.emails?.[0].value, // may need optional chaining
-      avatar: profile.photos?.[0].value,
+      username: profile.displayName,
+      email: profile.emails?.[0]?.value,
+      avatar: profile.photos?.[0]?.value,
     });
-
     const savedUser = await newUser.save();
     return done(null, savedUser);
-
   } catch (err) {
     return done(err, undefined);
   }
 }));
+
 
 passport.serializeUser((user: any, done) => {
   done(null, user._id); // store user ID in session
