@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.routes.ts';
 import questionRoutes from './routes/question.routes.ts';
 import userRoutes from './routes/user.routes.ts';
+import answerRoutes from './routes/answer.routes.ts';
 import './config/passport.ts';
 import './config/connection.ts';
 
@@ -42,7 +43,8 @@ async function start() {
 
     app.use('/auth', authRoutes);
     app.use('/questions', questionRoutes);
-    app.use('/users', userRoutes)
+    app.use('/users', userRoutes);
+    app.use('/answers', answerRoutes);
     
 
     app.get('/', (req, res) => {

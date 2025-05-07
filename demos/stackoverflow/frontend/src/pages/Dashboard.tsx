@@ -9,7 +9,7 @@ export default function Dashboard() {
   const [selectedOption, setSelectedOption] = useState<string>('GET');
   const [responseRequest, setResponseRequest] = useState("");
   const [url, setUrl] = useState<string>('');
-  const [requestBody, setRequestBody] = useState<string>('');
+  const [requestBody, setRequestBody] = useState<string>('{ "text": "Example question?}');
 
   const handleOptionSelect = (option: string) => {
     setSelectedOption(option);
@@ -37,7 +37,7 @@ export default function Dashboard() {
         credentials: 'include',
       };
   
-      if (selectedOption !== 'GET') {
+      if (selectedOption !== 'GET' && selectedOption !=='DELETE') {
         let parsedBody = requestBody;
         try {
           parsedBody = JSON.parse(requestBody);

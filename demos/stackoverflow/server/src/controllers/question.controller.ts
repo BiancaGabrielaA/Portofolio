@@ -22,7 +22,7 @@ export const insertQuestion = async (req: Request, res: Response): Promise<void>
 
 export const getQuestions = async (req: Request, res: Response): Promise<void> => {
   try {
-    const questions = await Question.find();
+    const questions = await Question.find().populate('userId', 'email');
     res.status(200).json({ success: true, data: questions });
   } catch (err) {
     console.error('Error fetching questions:', err);
@@ -34,7 +34,7 @@ export const getQuestion = async (req: Request, res: Response) => {
   const { questionId } = req.params;
 
   try {
-    const question = await Question.findById(questionId);
+    const question = await Question.findById(questionId).populate('userId', 'email');
     if (!question) {
       res.status(404).json({ message: 'Question not found' });
       return 
@@ -57,6 +57,17 @@ export const getUserQuestions = async (req: Request, res: Response) => {
   }
 };
 
+export const getMyQuestions = async (req: Request, res: Response) => {
+  const user = req.user as { userId: string }; // assuming your isAuthorized middleware sets this
+
+  try {
+    const questions = await Question.find({ userId: user.userId });
+    res.status(200).json({ success: true, data: questions });
+  } catch (error) {
+    console.error('Error fetching user questions:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
 export const deleteUserQuestion = async (req: Request, res: Response) => {
   const { questionId } = req.params;

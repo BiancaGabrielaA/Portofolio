@@ -21,6 +21,7 @@ const collections = [
     category: "Questions",
     routes: [
       { name: "Get All Questions", method: "GET", url: "/questions/get-all" },
+      { name: "Get My Questions", method: "GET", url: "/questions/get-my-all" },
       { name: "Get Question", method: "GET", url: "/questions/get-question/:questionId" },
       { name: "Post Question", method: "POST", url: "/questions/insert" },
       { name: "Get User's Questions", method: "GET", url: "/questions/get-all/:userId" },
@@ -32,8 +33,12 @@ const collections = [
     id: 3,
     category: "Answers",
     routes: [
-      { name: "Get All Questions", method: "GET", url: "/questions/get-all" },
-      { name: "Get Question", method: "GET", url: "/questions/get-question/:questionId" },
+      { name: "Get All Answers", method: "GET", url: "/answers/get-all" },
+      { name: "Get My Answers", method: "GET", url: "/answers/get-my-all" },
+      { name: "Get Question Answers", method: "GET", url: "/answers/get-question-answers/:questionId" },
+      { name: "Answer a Question", method: "POST",  url: "/answers/insert-answer/:questionId"},
+      { name: "Delete Answer", method: "DELETE", url: "/answers/delete-answer/:answerId"},
+      { name: "Update Answer", method: "PATCH", url: "/answers/update-answer/:answerID"},
     ]
   },
 ];
