@@ -59,4 +59,4 @@ npm run export
 cd Portfolio/Demos/stackoverflow/frontend
 npm install && npm run build
 
-Each service can be run locally using:
+Each service can be run locally using: npm run dev
