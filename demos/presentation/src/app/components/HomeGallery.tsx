@@ -17,7 +17,7 @@ export const HomeGallery = () => {
                      z-[${10 - index}]`}
         >
           <Image
-            src={`/demo/presentation/catering-images/catering-${num}.jpg`}
+            src={`/catering-images/catering-${num}.jpg`}
             alt={`Catering ${num}`}
             fill
             className="object-cover"

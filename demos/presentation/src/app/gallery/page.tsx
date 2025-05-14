@@ -30,7 +30,7 @@ const GalleryPage = () => {
         {Array.from({ length: imageCount }, (_, index) => (
           <div key={index} onClick={() => openModal(index)} className="cursor-pointer">
             <Image
-              src={`/demo/presentation/gallery-images/img-${index + 1}.jpg`}
+              src={`/gallery-images/img-${index + 1}.jpg`}
               alt={`Gallery image ${index + 1}`}
               width={400}
               height={300}
@@ -56,7 +56,7 @@ const GalleryPage = () => {
           </button>
           <div className="max-w-4xl mx-auto">
             <Image
-              src={`/demo/presentation/gallery-images/img-${currentImage + 1}.jpg`}
+              src={`/gallery-images/img-${currentImage + 1}.jpg`}
               alt={`Modal image ${currentImage + 1}`}
               width={800}
               height={600}
