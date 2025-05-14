@@ -6,11 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: true,
-    port: 3002
-  },
-  preview: {
-    port: 4173,
-    host: true,
-    allowedHosts: ['biancagabriela-dev.com']
+    port: 3002,
+    allowedHosts: true
   }
 })
