@@ -42,16 +42,16 @@ export default function MenuPage() {
       <div className="relative px-6 py-12">
       {/* Background images (messy layout) */}
       <div className="absolute left-20 -top-10 w-32 rotate-[-12deg] z-0 w-100 h-100 mb-10 rounded-lg overflow-hidden shadow-lg">
-           <Image src="/catering-images/menu-pic-1.jpg" alt="Home Contact" fill className="object-cover" />
+           <Image src="/demo/presentation/catering-images/menu-pic-1.jpg" alt="Home Contact" fill className="object-cover" />
       </div>
       <div className="absolute -left-16 bottom-0 w-36 rotate-[8deg] z-0 w-100 h-100 mb-10 rounded-lg overflow-hidden shadow-lg">
-           <Image src="/catering-images/menu-pic-2.jpg" alt="Home Contact" fill className="object-cover" />
+           <Image src="/demo/presentation/catering-images/menu-pic-2.jpg" alt="Home Contact" fill className="object-cover" />
       </div>
       <div className="absolute right-10 top-20 w-32 rotate-[10deg] z-0 w-100 h-100 mb-10 rounded-lg overflow-hidden shadow-lg">
-           <Image src="/catering-images/menu-pic-3.jpg" alt="Home Contact" fill className="object-cover" />
+           <Image src="/demo/presentation/catering-images/menu-pic-3.jpg" alt="Home Contact" fill className="object-cover" />
       </div>
       <div className="absolute right-16 bottom-0 w-36 rotate-[-7deg] z-0 w-100 h-100 mb-10 rounded-lg overflow-hidden shadow-lg">
-           <Image src="/catering-images/menu-pic-4.jpg" alt="Home Contact" fill className="object-cover" />
+           <Image src="/demo/presentation/catering-images/menu-pic-4.jpg" alt="Home Contact" fill className="object-cover" />
       </div>
       {/* 
       

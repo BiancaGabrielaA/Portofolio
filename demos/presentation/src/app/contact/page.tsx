@@ -9,7 +9,7 @@ export default function ContactPage() {
         {/* Image Side */}
         <div className="relative w-full md:w-1/2 h-[300px] md:h-full">
           <Image
-            src="/catering-images/contact-page.jpg"
+            src={"/demo/presentation/catering-images/contact-page.jpg"}
             alt="Home Contact"
             fill
             className="object-cover rounded-xl"

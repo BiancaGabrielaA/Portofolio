@@ -22,7 +22,7 @@ export default function Home() {
           {/* Right: Image Section */}
           <div className="flex-1 relative min-h-[400px] md:min-h-auto rounded-xl overflow-hidden">
             <Image
-              src="/catering-images/home-contact.jpg"
+              src={"/demo/presentation/catering-images/home-contact.jpg"}
               alt="Home Contact"
               fill
               className="object-cover"
