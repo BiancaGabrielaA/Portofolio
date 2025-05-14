@@ -11,6 +11,8 @@ COPY . .
 
 RUN npm run build
 
+RUN npm run export
+
 EXPOSE 3003
 
 CMD ["npm", "run", "dev"]
