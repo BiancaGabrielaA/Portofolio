@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: 'standalone',
-  basePath: '/demo/presentation',
+  basePath: process.env.NODE_ENV === 'production' ? '/demo/presentation' : '',
   assetPrefix: '/demo/presentation'
 };
 
