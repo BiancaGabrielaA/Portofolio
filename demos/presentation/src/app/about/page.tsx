@@ -7,7 +7,7 @@ export default function AboutPage () {
                 {/* Home Contact Image */}
                 <div className="relative w-full h-96 mb-10 rounded-lg overflow-hidden shadow-lg">
                     <Image
-                    src="/catering-images/home-contact.jpg"
+                    src={"/catering-images/home-contact.jpg"}
                     alt="Home Contact"
                     fill
                     className="object-cover"
@@ -41,7 +41,7 @@ export default function AboutPage () {
                     </h4>
                     <div className="relative w-full h-96 mb-6 rounded-lg overflow-hidden shadow-lg">
                     <Image
-                        src="/catering-images/team.jpg"
+                        src={"/catering-images/team.jpg"}
                         alt="Team"
                         fill
                         className="object-cover"
@@ -101,7 +101,7 @@ export default function AboutPage () {
                     <div className="flex flex-col items-center text-center space-y-4">
                     <div className="relative w-full h-64 rounded-xl overflow-hidden shadow-md">
                         <Image
-                        src="/catering-images/corporate-events.jpg"
+                        src={"/catering-images/corporate-events.jpg"}
                         alt="Corporate Events"
                         fill
                         className="object-cover"
