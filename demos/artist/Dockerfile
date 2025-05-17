@@ -12,10 +12,15 @@ COPY . .
 # Build the Vite app
 RUN npm run build
 
-# Debug: List contents of /app and /app/dist
-RUN echo "Listing /app:" && ls -al /app
-RUN echo "Listing /app/dist:" && ls -al /app/dist
+# Stage 2: Serve the app
+FROM node:18-alpine
+WORKDIR /app
+
+# Copy built files from build stage
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/package*.json ./
+COPY --from=build /app/node_modules ./node_modules
 
 # Serve using vite preview
 EXPOSE 3002
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "3002"]

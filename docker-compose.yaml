@@ -29,7 +29,7 @@ services:
     build: ./demos/presentation
     container_name: presentation-app
     ports:
-      - "3003:3000"
+      - "3000:3000"
 
   portofolio-frontend:
     build: ./frontend
@@ -52,3 +52,4 @@ services:
 volumes:
   mongo_data:
     driver: local
+

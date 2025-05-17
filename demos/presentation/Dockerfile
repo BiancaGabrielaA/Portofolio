@@ -11,6 +11,10 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 3003
+EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+ENV NODE_ENV=production
+ENV PORT=3000
+
+CMD ["npm", "start"]
+
