@@ -2,11 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-<<<<<<< HEAD
-  output: 'standalone',
-  basePath: '/demo/presentation',
-  assetPrefix: '/demo/presentation'
-=======
   crossOrigin: 'anonymous', // Useful for cross-origin asset loading (images, fonts, etc.)
   trailingSlash: true, // Ensures routes end with a slash (e.g., /about/ instead of /about)
   env: {
@@ -26,7 +21,6 @@ const nextConfig: NextConfig = {
   },
   basePath: process.env.NODE_ENV === 'production' ? '/demo/presentation' : '', // Set basePath for production
   assetPrefix: process.env.NODE_ENV === 'production' ? '/demo/presentation' : '', // Set assetPrefix for production
->>>>>>> refs/remotes/origin/main
 };
 
 export default nextConfig;
