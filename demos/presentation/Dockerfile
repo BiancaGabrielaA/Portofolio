@@ -11,16 +11,6 @@ COPY . .
 
 RUN npm run build
 
-<<<<<<< HEAD
-EXPOSE 3000
-
-ENV NODE_ENV=production
-ENV PORT=3000
-
-CMD ["npm", "start"]
-=======
-RUN npm run export
-
 EXPOSE 3003
->>>>>>> refs/remotes/origin/main
+
 
